@@ -1,0 +1,14 @@
+# Every push to main republishes samostuduj.cz, which fetches this repo at
+# build time and regenerates the flyer PDFs/previews on its /letaky pages.
+name: Rebuild samostuduj.cz
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify build hook
+        run: curl -fsS -X POST "${{ secrets.NETLIFY_BUILD_HOOK }}"
